@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import http from "http";
-import { lobby, lobbyTime, userLobbies } from "./global/GlobalVariables.js";
+import { Server } from "socket.io";
 
 import api from "./routes/api.js";
 import cors from "cors";
@@ -13,16 +13,14 @@ app.use(cors());
 
 app.use("/", api);
 
-app.get("/", (req, res) => {
-  console.log(lobby);
-  console.log(lobbyTime);
-  console.log(userLobbies);
-  const object = {
-    title: "camelCase mars doodle game app",
-    server: "on",
-    statusCode: 200,
-  };
-  res.json(object);
+
+
+
+export const io = new Server(server, {
+  cors: {
+    origin: "*", // For Dev Mode
+    methods: ["GET", "POST"],
+  },
 });
 
 
